@@ -12,7 +12,8 @@ class PhotoSwipe extends React.Component {
     options: PropTypes.object,
     onClose: PropTypes.func,
     id: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onClickReportPhoto: PropTypes.func
   };
 
   static defaultProps = {
@@ -104,6 +105,47 @@ class PhotoSwipe extends React.Component {
     });
   };
 
+  handleClickReportPhoto = () => {
+    // w. This step is required.
+    // otherwise there will be a bug with the photoswiper when opening the modal
+    const { onClose, onClickReportPhoto } = this.props;
+    this.setState({
+      isOpen: false,
+    }, () => {
+      if (onClose) {
+        onClose();
+      }
+      if (onClickReportPhoto) {
+        onClickReportPhoto(this.photoSwipe.getCurrentIndex());
+      }
+    });
+  };
+
+  renderReportPhotoButton() {
+    if (!this.props.onClickReportPhoto) return null;
+    return (
+      <div className='pswp__top-bar' style={{ top: 'initial', bottom: '0' }}>
+        <button
+          style={{
+            width: 'initial',
+            color: 'white',
+            fontSize: '13px',
+            backgroundImage: 'initial',
+            lineHeight: '20px',
+            height: 'initial',
+            padding: '10px',
+          }}
+          className='pswp__button'
+          title='Report Photo'
+          onClick={this.handleClickReportPhoto}
+          onTouchEnd={this.handleClickReportPhoto}
+        >
+          Report Photo
+        </button>
+      </div>
+    );
+  }
+
   render() {
     const { id } = this.props;
     let { className } = this.props;
@@ -164,6 +206,7 @@ class PhotoSwipe extends React.Component {
             <div className="pswp__caption">
               <div className="pswp__caption__center"/>
             </div>
+            {this.renderReportPhotoButton()}
           </div>
         </div>
       </div>
