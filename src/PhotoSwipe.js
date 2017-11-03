@@ -20,6 +20,7 @@ class PhotoSwipe extends React.Component {
     options: {},
     onClose: () => {
     },
+    onClickReportPhoto: null,
     id: '',
     className: ''
   };
@@ -124,7 +125,7 @@ class PhotoSwipe extends React.Component {
   renderReportPhotoButton() {
     if (!this.props.onClickReportPhoto) return null;
     return (
-      <div className='pswp__top-bar' style={{ top: 'initial', bottom: '0' }}>
+      <div className="pswp__top-bar" style={{ top: 'initial', bottom: '0' }}>
         <button
           style={{
             width: 'initial',
@@ -135,8 +136,8 @@ class PhotoSwipe extends React.Component {
             height: 'initial',
             padding: '10px',
           }}
-          className='pswp__button'
-          title='Report Photo'
+          className="pswp__button"
+          title="Report Photo"
           onClick={this.handleClickReportPhoto}
           onTouchEnd={this.handleClickReportPhoto}
         >
